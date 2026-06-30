@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDI Prediction Result - Vanguard HDI</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="/static/index.css">
+    <style>
+        .result-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        .result-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            width: 100%;
+        }
+        .score-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(0, 242, 254, 0.05);
+            border: 3px solid #00F2FE;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            box-shadow: var(--glow-primary);
+        }
+        .score-val {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 800;
+            color: #00F2FE;
+        }
+        .score-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+        .metrics-summary {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            text-align: left;
+        }
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .metric-val-text {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Glow Spheres -->
+    <div class="glow-sphere sphere-1"></div>
+    <div class="glow-sphere sphere-2"></div>
+    <div class="glow-sphere sphere-3"></div>
+
+    <div class="result-container">
+        <div class="result-card">
+            <div class="brand-logo" style="justify-content: center; margin-bottom: 1rem;">
+                <i class="fa-solid fa-chart-line logo-icon"></i>
+                <span class="logo-text">Vanguard <span class="accent-text">HDI</span></span>
+            </div>
+            
+            <h2 style="font-family: var(--font-heading); font-weight: 700;">Prediction Result</h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">Calculated HDI score using pre-trained Linear Regression.</p>
+            
+            <div class="score-circle">
+                <span class="score-val">{{ "%.4f" | format(score) }}</span>
+                <span class="score-label">HDI SCORE</span>
+            </div>
+            
+            <div class="metrics-summary">
+                <div class="metric-row">
+                    <span class="metric-label"><i class="fa-solid fa-heart-pulse" style="color: #00C6FF; margin-right: 8px;"></i> Life Expectancy</span>
+                    <span class="metric-val-text">{{ life_expectancy }} yrs</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label"><i class="fa-solid fa-graduation-cap" style="color: #F9D423; margin-right: 8px;"></i> Mean Schooling</span>
+                    <span class="metric-val-text">{{ mean_schooling }} yrs</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label"><i class="fa-solid fa-graduation-cap" style="color: #FF4E50; margin-right: 8px;"></i> Expected Schooling</span>
+                    <span class="metric-val-text">{{ expected_schooling }} yrs</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label"><i class="fa-solid fa-dollar-sign" style="color: #B3FFAB; margin-right: 8px;"></i> GNI per Capita</span>
+                    <span class="metric-val-text">${{ "{:,.0f}".format(gni) }}</span>
+                </div>
+            </div>
+            
+            <a href="/dashboard" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; font-weight: 600; width: 100%; justify-content: center; padding: 0.85rem 1.5rem; border-radius: 10px;">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Workspace</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanguard HDI - Human Development Index Forecasting System</title>
+    <meta name="description" content="An advanced predictive analytics platform for Human Development Index (HDI) forecasting, powered by machine learning and historical country data.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="/static/index.css">
+    <style>
+        .home-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        .intro-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 3.5rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+        .intro-title {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+        .intro-desc {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3.5rem;
+        }
+        .pillar-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: var(--transition-smooth);
+        }
+        .pillar-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--card-hover-border);
+            background: rgba(0, 242, 254, 0.02);
+        }
+        .pillar-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .pillar-title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .pillar-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        .cta-btn {
+            font-size: 1.1rem;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            box-shadow: var(--glow-primary);
+        }
+        .footer-note {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Glow Spheres -->
+    <div class="glow-sphere sphere-1"></div>
+    <div class="glow-sphere sphere-2"></div>
+    <div class="glow-sphere sphere-3"></div>
+
+    <div class="home-container">
+        <div class="intro-card">
+            <div class="brand-logo" style="justify-content: center; margin-bottom: 1.5rem;">
+                <i class="fa-solid fa-chart-line logo-icon" style="font-size: 2rem;"></i>
+                <span class="logo-text" style="font-size: 2rem;">Vanguard <span class="accent-text">HDI</span></span>
+            </div>
+            
+            <h1 class="intro-title">Human Development Index Forecasting</h1>
+            <p class="intro-desc">
+                Welcome to Vanguard HDI, a premium predictive analytics platform. Leverage machine learning algorithms trained on decades of global developmental data to predict and evaluate national human development scores.
+            </p>
+
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <i class="fa-solid fa-heart-pulse pillar-icon" style="color: #00F2FE;"></i>
+                    <h3 class="pillar-title">Long & Healthy Life</h3>
+                    <p class="pillar-desc">Measured by Life Expectancy at Birth, capturing country-level healthcare standards and quality of life.</p>
+                </div>
+                <div class="pillar-card">
+                    <i class="fa-solid fa-graduation-cap pillar-icon" style="color: #7F00FF;"></i>
+                    <h3 class="pillar-title">Knowledge & Education</h3>
+                    <p class="pillar-desc">Assessed via Expected and Mean Years of Schooling, reflecting educational opportunity and literacy rates.</p>
+                </div>
+                <div class="pillar-card">
+                    <i class="fa-solid fa-dollar-sign pillar-icon" style="color: #38EF7D;"></i>
+                    <h3 class="pillar-title">Decent Living Standard</h3>
+                    <p class="pillar-desc">Estimated through Gross National Income (GNI) per Capita (PPP $), mapping purchasing power parity and economic health.</p>
+                </div>
+            </div>
+
+            <a href="/dashboard" class="btn btn-primary cta-btn">
+                <span>Launch Interactive Workspace</span>
+                <i class="fa-solid fa-compass"></i>
+            </a>
+            
+            <p class="footer-note">Powered by a pre-trained scikit-learn Linear Regression model.</p>
+        </div>
+    </div>
+</body>
+</html>

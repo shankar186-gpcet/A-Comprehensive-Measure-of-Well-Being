@@ -136,10 +136,50 @@ def generate_svg_report(prediction_id, country_name, model_name, hdi_score, cate
     </svg>"""
     return svg
 
-# HTTP Frontend Route
+# HTTP Frontend Routes
 @app.route("/")
 def home():
+    return render_template("home.html")
+
+@app.route("/dashboard")
+def dashboard():
     return render_template("index.html")
+
+# Traditional HTML Form POST Predict Route
+@app.route("/predict", methods=["POST"])
+def predict():
+    try:
+        # Retrieve input values from traditional form submission
+        life_expectancy = float(request.form.get("life_expectancy", 70.0))
+        mean_schooling = float(request.form.get("mean_years_schooling", 7.0))
+        expected_schooling = float(request.form.get("expected_years_schooling", 10.0))
+        gni = float(request.form.get("gnl_per_capita", 15000.0))
+        
+        score = None
+        if ml_model_pickle is not None:
+            try:
+                features = np.array([[life_expectancy, mean_schooling, expected_schooling, gni]])
+                score = float(ml_model_pickle.predict(features)[0])
+            except Exception as e:
+                print(f"Error predicting with pickled model: {e}")
+                
+        if score is None:
+            lei, ei, ii = calculate_hdi_breakdown(life_expectancy, mean_schooling, expected_schooling, gni)
+            score = (lei * ei * ii) ** (1.0 / 3.0)
+            
+        score = max(0.0, min(1.0, score))
+        rounded_score = round(score, 4)
+        
+        return render_template(
+            "predict.html",
+            score=rounded_score,
+            life_expectancy=life_expectancy,
+            mean_schooling=mean_schooling,
+            expected_schooling=expected_schooling,
+            gni=gni
+        )
+    except Exception as e:
+        return f"Error during prediction calculation: {e}", 400
 
 # API Routes
 @app.route("/api/auth/login", methods=["POST"])
