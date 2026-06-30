@@ -1,5 +1,7 @@
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
 import pickle
 import os
 
@@ -31,10 +33,6 @@ def main():
     # Y: Dependent variable (index 4)
     Y = df_layout.iloc[:, 4]
 
-    # Count null values
-    print("Null values in X before imputation:")
-    print(X.isnull().sum())
-
     # Fill null values in X using the column mean
     X = X.fillna(X.mean())
 
@@ -43,8 +41,22 @@ def main():
     X = X[non_null_y_mask]
     Y = Y[non_null_y_mask]
 
-    # Model training
-    print("Training ML model (RandomForestRegressor)...")
+    # Split dataset into training and testing sets (80/20 split)
+    print("Splitting dataset into training and testing sets...")
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
+
+    # Train RandomForestRegressor on training set
+    print("Training ML model on training set...")
+    temp_model = RandomForestRegressor(n_estimators=100, random_state=42)
+    temp_model.fit(X_train, Y_train)
+
+    # Evaluate on test set
+    Y_pred = temp_model.predict(X_test)
+    print(f"R² Score on Test Set: {r2_score(Y_test, Y_pred):.6f}")
+    print(f"MSE on Test Set: {mean_squared_error(Y_test, Y_pred):.6f}")
+
+    # Train final model on all data for production deployment
+    print("Training final ML model on all records...")
     model = RandomForestRegressor(n_estimators=100, random_state=42)
     model.fit(X, Y)
 
