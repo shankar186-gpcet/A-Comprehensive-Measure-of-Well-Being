@@ -12,29 +12,31 @@ def main():
 
     df = pd.read_csv(csv_path)
 
-    # Features and Target (based on UNDP 2021 columns)
-    columns_of_interest = [
+    # Standardize column ordering to enable integer index selections
+    columns_layout = [
+        'ISO3',
+        'Human Development Groups',
+        'Country',
+        'UNDP Developing Regions',
         'Human Development Index (2021)',
         'Life Expectancy at Birth (2021)',
         'Expected Years of Schooling (2021)',
         'Mean Years of Schooling (2021)',
         'Gross National Income Per Capita (2021)'
     ]
+    df_layout = df[columns_layout]
 
-    df_clean = df[columns_of_interest].dropna()
+    df_clean = df_layout.dropna()
 
-    X = df_clean[[
-        'Life Expectancy at Birth (2021)',
-        'Expected Years of Schooling (2021)',
-        'Mean Years of Schooling (2021)',
-        'Gross National Income Per Capita (2021)'
-    ]]
-    y = df_clean['Human Development Index (2021)']
+    # X: Independent variables (indices 5, 6, 7, 8)
+    X = df_clean.iloc[:, [5, 6, 7, 8]]
+    # Y: Dependent variable (index 4)
+    Y = df_clean.iloc[:, 4]
 
     # Model training
     print("Training ML model (RandomForestRegressor)...")
     model = RandomForestRegressor(n_estimators=100, random_state=42)
-    model.fit(X, y)
+    model.fit(X, Y)
 
     # Save to Flask/HDI.pkl
     out_dir = os.path.join(os.path.dirname(__file__), "..", "Flask")
