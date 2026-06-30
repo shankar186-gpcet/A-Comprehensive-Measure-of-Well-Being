@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 import pickle
@@ -45,9 +45,9 @@ def main():
     print("Splitting dataset into training and testing sets...")
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
 
-    # Train RandomForestRegressor on training set
-    print("Training ML model on training set...")
-    temp_model = RandomForestRegressor(n_estimators=100, random_state=42)
+    # Train LinearRegression on training set
+    print("Training ML model (LinearRegression) on training set...")
+    temp_model = LinearRegression()
     temp_model.fit(X_train, Y_train)
 
     # Evaluate on test set
@@ -56,8 +56,8 @@ def main():
     print(f"MSE on Test Set: {mean_squared_error(Y_test, Y_pred):.6f}")
 
     # Train final model on all data for production deployment
-    print("Training final ML model on all records...")
-    model = RandomForestRegressor(n_estimators=100, random_state=42)
+    print("Training final ML model (LinearRegression) on all records...")
+    model = LinearRegression()
     model.fit(X, Y)
 
     # Save to Flask/HDI.pkl
