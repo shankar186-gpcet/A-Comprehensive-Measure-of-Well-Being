@@ -1,4 +1,7 @@
-fastapi
-uvicorn
+Flask
+pandas
+scikit-learn
 sqlalchemy
 email-validator
+matplotlib
+seaborn
