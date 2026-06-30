@@ -674,6 +674,11 @@ body {
     display: block;
 }
 
+.report-meta-badges {
+    display: flex;
+    gap: 15px;
+}
+
 .action-footer {
     display: flex;
     justify-content: flex-end;

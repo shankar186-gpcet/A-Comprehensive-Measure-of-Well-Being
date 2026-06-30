@@ -85,11 +85,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function showLogin() {
+        loginModal.ariaHidden = false;
         loginModal.classList.remove("hidden");
         appContainer.classList.add("hidden");
     }
 
     function showDashboard() {
+        loginModal.ariaHidden = true;
         loginModal.classList.add("hidden");
         appContainer.classList.remove("hidden");
         
@@ -180,7 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
             modelsList.forEach((m, idx) => {
                 const opt = document.createElement("option");
                 opt.value = m.model_id;
-                // Pre-select first model by default
                 if (idx === 0) opt.selected = true;
                 opt.textContent = m.model_name;
                 selectModel.appendChild(opt);
@@ -336,9 +337,6 @@ document.addEventListener("DOMContentLoaded", () => {
             
             predictions.forEach(p => {
                 const tr = document.createElement("tr");
-                
-                // Format metrics string for display
-                const metricsText = `LE: ${p.predicted_hdi_score} (see report)`;
                 
                 // Get classification badge style
                 let catClass = "cat-badge-low";

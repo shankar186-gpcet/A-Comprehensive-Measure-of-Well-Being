@@ -1,0 +1,14 @@
+country_name,region,population,life_expectancy,mean_years_schooling,expected_years_schooling,gnl_per_capita,hdi_score
+Switzerland,Europe,8700000,84.0,13.9,16.5,69000.0,0.962
+Norway,Europe,5400000,86.1,13.0,18.0,66000.0,0.961
+Iceland,Europe,370000,83.0,12.8,19.0,56000.0,0.959
+Hong Kong,Asia,7400000,85.5,12.2,17.3,62000.0,0.952
+Australia,Oceania,25600000,83.2,12.7,16.2,49000.0,0.951
+United States,Americas,331000000,77.2,13.7,16.3,64000.0,0.921
+Japan,Asia,125800000,84.8,12.9,15.2,42000.0,0.925
+Germany,Europe,83200000,81.0,14.1,17.0,54000.0,0.942
+Brazil,Americas,214300000,76.2,8.1,15.6,14000.0,0.754
+India,Asia,1408000000,67.2,6.7,11.9,6600.0,0.633
+Egypt,Africa,109300000,70.2,7.4,13.8,12000.0,0.731
+Kenya,Africa,54000000,61.4,6.6,11.3,4200.0,0.575
+Niger,Africa,25000000,62.8,2.1,5.7,1200.0,0.394

@@ -1,4 +1,10 @@
 import datetime
+import os
+import sys
+
+# Ensure models module can be imported if script is run directly
+sys.path.append(os.path.dirname(__file__))
+
 from models import init_db, SessionLocal, User, Country, Dataset, MLModel
 
 def seed_database():
@@ -60,7 +66,7 @@ def seed_database():
                 algorithm_used="Random Forest Regressor",
                 accuracy_score=0.985,
                 r2_score=0.978,
-                model_file_path="models/rf_hdi_predictor_v1.joblib"
+                model_file_path="Flask/HDI.pkl" # updated path
             ),
             MLModel(
                 dataset_id=dataset.dataset_id,
@@ -68,7 +74,7 @@ def seed_database():
                 algorithm_used="Multi-Layer Perceptron (MLP)",
                 accuracy_score=0.962,
                 r2_score=0.954,
-                model_file_path="models/nn_hdi_predictor_v1.joblib"
+                model_file_path="Flask/HDI.pkl" # fallback to same pickle file
             ),
             MLModel(
                 dataset_id=dataset.dataset_id,
@@ -76,7 +82,7 @@ def seed_database():
                 algorithm_used="Linear Regression",
                 accuracy_score=0.912,
                 r2_score=0.898,
-                model_file_path="models/lr_hdi_baseline.joblib"
+                model_file_path="Flask/HDI.pkl" # fallback
             )
         ]
         db.add_all(models)
