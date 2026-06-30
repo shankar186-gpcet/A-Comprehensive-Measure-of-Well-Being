@@ -26,12 +26,22 @@ def main():
     ]
     df_layout = df[columns_layout]
 
-    df_clean = df_layout.dropna()
-
     # X: Independent variables (indices 5, 6, 7, 8)
-    X = df_clean.iloc[:, [5, 6, 7, 8]]
+    X = df_layout.iloc[:, [5, 6, 7, 8]]
     # Y: Dependent variable (index 4)
-    Y = df_clean.iloc[:, 4]
+    Y = df_layout.iloc[:, 4]
+
+    # Count null values
+    print("Null values in X before imputation:")
+    print(X.isnull().sum())
+
+    # Fill null values in X using the column mean
+    X = X.fillna(X.mean())
+
+    # Drop target null rows to ensure model fits correctly
+    non_null_y_mask = Y.notna()
+    X = X[non_null_y_mask]
+    Y = Y[non_null_y_mask]
 
     # Model training
     print("Training ML model (RandomForestRegressor)...")
