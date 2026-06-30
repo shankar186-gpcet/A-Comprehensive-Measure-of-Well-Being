@@ -12,16 +12,28 @@ def main():
 
     df = pd.read_csv(csv_path)
 
-    # Features and Target
-    features = ["life_expectancy", "mean_years_schooling", "expected_years_schooling", "gnl_per_capita"]
-    target = "hdi_score"
+    # Features and Target (based on UNDP 2021 columns)
+    columns_of_interest = [
+        'Human Development Index (2021)',
+        'Life Expectancy at Birth (2021)',
+        'Expected Years of Schooling (2021)',
+        'Mean Years of Schooling (2021)',
+        'Gross National Income Per Capita (2021)'
+    ]
 
-    X = df[features]
-    y = df[target]
+    df_clean = df[columns_of_interest].dropna()
+
+    X = df_clean[[
+        'Life Expectancy at Birth (2021)',
+        'Expected Years of Schooling (2021)',
+        'Mean Years of Schooling (2021)',
+        'Gross National Income Per Capita (2021)'
+    ]]
+    y = df_clean['Human Development Index (2021)']
 
     # Model training
     print("Training ML model (RandomForestRegressor)...")
-    model = RandomForestRegressor(n_estimators=50, random_state=42)
+    model = RandomForestRegressor(n_estimators=100, random_state=42)
     model.fit(X, y)
 
     # Save to Flask/HDI.pkl
