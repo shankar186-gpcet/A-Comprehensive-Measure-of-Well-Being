@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanguard HDI Analyzer - Global Well-Being & Human Development Predictor</title>
+    <meta name="description" content="An advanced predictive analytics platform for Human Development Index (HDI) forecasting, powered by machine learning and historical country data.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="glow-sphere sphere-1"></div>
+    <div class="glow-sphere sphere-2"></div>
+    <div class="glow-sphere sphere-3"></div>
+
+    <!-- Login Overlay -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="login-card">
+            <div class="brand-logo">
+                <i class="fa-solid fa-chart-line logo-icon"></i>
+                <span class="logo-text">Vanguard <span class="accent-text">HDI</span></span>
+            </div>
+            <h2>Access Predictive Workspace</h2>
+            <p>Enter your details to initiate an analysis session.</p>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-name">Full Name</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-user input-icon"></i>
+                        <input type="text" id="login-name" required placeholder="e.g. Alice Smith">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="login-email">Work Email</label>
+                    <div class="input-wrapper">
+                        <i class="fa-regular fa-envelope input-icon"></i>
+                        <input type="email" id="login-email" required placeholder="name@wellbeing.org">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="login-role">Professional Role</label>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-briefcase input-icon"></i>
+                        <select id="login-role">
+                            <option value="Analyst">Global Policy Analyst</option>
+                            <option value="Data Scientist">Senior Data Scientist</option>
+                            <option value="Viewer">Guest Observer</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="login-submit-btn">
+                    <span>Initialize Session</span>
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Application (Hidden initially) -->
+    <div id="app-container" class="app-layout hidden">
+        <!-- Top Navigation -->
+        <header class="main-header">
+            <div class="brand">
+                <i class="fa-solid fa-chart-line logo-icon"></i>
+                <span class="logo-text">Vanguard <span class="accent-text">HDI</span></span>
+            </div>
+            
+            <div class="header-right">
+                <div class="session-badge">
+                    <span class="pulse-indicator"></span>
+                    <span class="session-text">Session Active</span>
+                </div>
+                
+                <div class="user-profile">
+                    <div class="user-avatar" id="user-avatar-text">U</div>
+                    <div class="user-meta">
+                        <span class="user-name" id="display-user-name">User Name</span>
+                        <span class="user-role" id="display-user-role">Role</span>
+                    </div>
+                </div>
+
+                <button id="logout-btn" class="btn-icon" title="End Session">
+                    <i class="fa-solid fa-power-off"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Dashboard Body Grid -->
+        <main class="dashboard-grid">
+            <!-- Left Panel: Form Input & Configuration -->
+            <section class="dashboard-card card-input-panel">
+                <div class="card-header">
+                    <div class="header-title">
+                        <i class="fa-solid fa-sliders icon-accent"></i>
+                        <h2>Prediction Configurator</h2>
+                    </div>
+                    <p class="subtitle">Input development metrics to calculate human well-being indices.</p>
+                </div>
+
+                <form id="prediction-form" class="prediction-form">
+                    <!-- Country Pre-population Selector -->
+                    <div class="form-group">
+                        <label for="predict-country">Select Target Country (Reference template)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-earth-americas input-icon"></i>
+                            <select id="predict-country" required>
+                                <option value="">Select country...</option>
+                                <!-- Will be filled dynamically -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Life Expectancy Metric -->
+                    <div class="form-group slider-group">
+                        <div class="label-row">
+                            <label for="life-expectancy">Life Expectancy at Birth</label>
+                            <span class="metric-value"><span id="val-life">70.0</span> yrs</span>
+                        </div>
+                        <div class="range-wrapper">
+                            <input type="range" id="life-expectancy" min="20" max="90" step="0.1" value="70">
+                            <div class="range-labels">
+                                <span>20.0 yrs</span>
+                                <span>90.0 yrs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mean Years of Schooling -->
+                    <div class="form-group slider-group">
+                        <div class="label-row">
+                            <label for="mean-schooling">Mean Years of Schooling</label>
+                            <span class="metric-value"><span id="val-mean-school">7.0</span> yrs</span>
+                        </div>
+                        <div class="range-wrapper">
+                            <input type="range" id="mean-schooling" min="0" max="15" step="0.1" value="7">
+                            <div class="range-labels">
+                                <span>0.0 yrs</span>
+                                <span>15.0 yrs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Expected Years of Schooling -->
+                    <div class="form-group slider-group">
+                        <div class="label-row">
+                            <label for="expected-schooling">Expected Years of Schooling</label>
+                            <span class="metric-value"><span id="val-exp-school">10.0</span> yrs</span>
+                        </div>
+                        <div class="range-wrapper">
+                            <input type="range" id="expected-schooling" min="0" max="18" step="0.1" value="10">
+                            <div class="range-labels">
+                                <span>0.0 yrs</span>
+                                <span>18.0 yrs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GNI per Capita -->
+                    <div class="form-group">
+                        <label for="gnl-per-capita">GNI per Capita (PPP $)</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-dollar-sign input-icon"></i>
+                            <input type="number" id="gnl-per-capita" min="100" max="100000" step="100" value="15000" required>
+                        </div>
+                        <p class="input-tip">Range: $100 to $100,000. Expressed in Purchasing Power Parity (PPP) USD.</p>
+                    </div>
+
+                    <!-- Machine Learning Model -->
+                    <div class="form-group">
+                        <label for="predict-model">Machine Learning Engine</label>
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-brain input-icon"></i>
+                            <select id="predict-model" required>
+                                <!-- Will be filled dynamically -->
+                            </select>
+                        </div>
+                        <!-- Model Details Sub-panel -->
+                        <div id="model-details-card" class="model-details-card hidden">
+                            <span class="model-meta-item"><strong id="model-algo-name">N/A</strong></span>
+                            <span class="model-meta-item">Accuracy Score: <strong id="model-accuracy">N/A</strong></span>
+                            <span class="model-meta-item">R² Score: <strong id="model-r2">N/A</strong></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-accent btn-block" id="predict-submit-btn">
+                        <span>Compute HDI & Report</span>
+                        <i class="fa-solid fa-microchip"></i>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Right Panel: Prediction Results & Visualizations -->
+            <section class="dashboard-card card-output-panel">
+                <div class="card-header">
+                    <div class="header-title">
+                        <i class="fa-solid fa-chart-pie icon-accent"></i>
+                        <h2>Visualization Report</h2>
+                    </div>
+                    <p class="subtitle">Real-time analytical output and breakdown of normalized sub-indices.</p>
+                </div>
+
+                <div class="output-content">
+                    <!-- Blank state when no prediction runs yet -->
+                    <div id="output-blank-state" class="output-blank-state">
+                        <div class="blank-icon-wrapper">
+                            <i class="fa-solid fa-chart-line-up blank-icon"></i>
+                        </div>
+                        <h3>Analytical Model Ready</h3>
+                        <p>Configure and run the prediction model to generate interactive SVG graphs and scores.</p>
+                    </div>
+
+                    <!-- Loader -->
+                    <div id="output-loader" class="output-loader hidden">
+                        <div class="spinner"></div>
+                        <p>Running ML Model Predictions...</p>
+                    </div>
+
+                    <!-- Active Report Section -->
+                    <div id="active-report-section" class="active-report-section hidden">
+                        <div class="report-meta-badges">
+                            <div class="report-badge-item">
+                                <span class="badge-label">PREDICTION</span>
+                                <span class="badge-val" id="report-pred-id">#1</span>
+                            </div>
+                            <div class="report-badge-item">
+                                <span class="badge-label">HDI SCORE</span>
+                                <span class="badge-val text-accent" id="report-pred-score">0.000</span>
+                            </div>
+                        </div>
+
+                        <!-- Embedded SVG graph container -->
+                        <div id="svg-report-container" class="svg-report-container">
+                            <!-- SVG element will be appended here -->
+                        </div>
+
+                        <div class="action-footer">
+                            <button id="download-report-btn" class="btn btn-secondary">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Export Report (SVG)</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom Panel: Historical Prediction Logs Table -->
+            <section class="dashboard-card card-logs-panel">
+                <div class="card-header logs-header">
+                    <div class="header-title">
+                        <i class="fa-solid fa-list-check icon-accent"></i>
+                        <h2>Historical Prediction Logs</h2>
+                    </div>
+                    <span class="badge-counter" id="logs-count">0 Records</span>
+                </div>
+
+                <div class="table-scroll-wrapper">
+                    <table class="logs-table" id="logs-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Analyst</th>
+                                <th>Country/Region</th>
+                                <th>ML Engine</th>
+                                <th>Expected Metrics</th>
+                                <th>Predicted HDI</th>
+                                <th>Classification</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logs-table-body">
+                            <!-- Rows filled dynamically -->
+                        </tbody>
+                    </table>
+                    
+                    <div id="table-blank-state" class="table-blank-state">
+                        <p>No historical analysis records available in current database.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/index.js"></script>
+</body>
+</html>
+
