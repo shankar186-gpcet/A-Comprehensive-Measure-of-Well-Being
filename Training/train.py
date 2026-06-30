@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
@@ -50,13 +51,30 @@ def main():
     temp_model = LinearRegression()
     temp_model.fit(X_train, Y_train)
 
-    # Evaluate on test set
+    # Generate HDI Predictions
     Y_pred = temp_model.predict(X_test)
-    print(f"R² Score on Test Set: {r2_score(Y_test, Y_pred):.6f}")
+    print("\nPredicted HDI values (y_pred):")
+    print(Y_pred)
+
+    # R-squared value & MSE
+    print(f"\nR² Score on Test Set: {r2_score(Y_test, Y_pred):.6f}")
     print(f"MSE on Test Set: {mean_squared_error(Y_test, Y_pred):.6f}")
 
+    # Inspect ground truth (y_test) vs predicted (y_pred)
+    print("\nActual ground truth HDI scores (y_test) as an array:")
+    print(Y_test.values)
+
+    # Test model with a reduced input set (first 5 records)
+    print("\nValidation on Reduced Input Set (First 5 records of test set):")
+    comparison_df = pd.DataFrame({
+        'Actual (y_test)': Y_test.values[:5],
+        'Predicted (y_pred)': Y_pred[:5],
+        'Absolute Error': np.abs(Y_test.values[:5] - Y_pred[:5])
+    })
+    print(comparison_df)
+
     # Train final model on all data for production deployment
-    print("Training final ML model (LinearRegression) on all records...")
+    print("\nTraining final ML model (LinearRegression) on all records...")
     model = LinearRegression()
     model.fit(X, Y)
 
